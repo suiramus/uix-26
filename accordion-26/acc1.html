@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+	<title>FAQ - Lorem Ipsum Style</title>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+	<style>
+		:root {
+			--bg-body: #f8fafc;
+			--bg-card: #ffffff;
+			--bg-card-hover: #FBFBFB;
+			--text-main: #0f172a;
+			--text-muted: #71717A;
+			--border-color: #e2e8f0;
+			--primary-highlight: #3b82f6;
+			--transition-speed: 0.3s;
+		}
+		
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		
+		html {
+			overflow-y: scroll;
+		}
+		
+		body {
+			background: var(--bg-body);
+			font-family: 'Inter', system-ui, sans-serif;
+			color: var(--text-main);
+			line-height: 1.6;
+		}
+		
+		.faq-section {
+			max-width: 880px;
+			margin: 3rem auto;
+			padding: 6rem 2rem;
+			background: var(--bg-card);
+			box-shadow: 0 8px 30px rgba(0, 0, 0, 0.03);
+		}
+		
+		.faq-header {
+			margin-bottom: 3rem;
+			text-align: center;
+		}
+		
+		.faq-header h2 {
+			font-size: clamp(1.5rem, 4vw + 1rem, 2.5rem);
+			line-height: 1.2;
+			font-weight: 700;
+			margin-bottom: 0.5rem;
+		}
+
+		
+		.faq-header p {
+			color: var(--text-muted);
+		}
+		
+		.faq-list {
+			display: flex;
+			flex-direction: column;
+			gap: 0.75rem;
+		}
+		
+		.faq-item {
+			background: var(--bg-card);
+			border-radius: 6px;
+			border: 1px solid #eef2f6;
+			transition: border-color 0.2s, box-shadow 0.2s;
+			overflow: hidden;
+		}
+		
+		/* .faq-item.active, */
+		.faq-item:hover {
+			background: var(--bg-card-hover);
+			/* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03); */
+		}
+		
+		.faq-question {
+			width: 100%;
+			background: transparent;
+			border: none;
+			padding: 1.25rem 1.5rem;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			cursor: pointer;
+			text-align: left;
+			font-family: inherit;
+		}
+		
+		.faq-question:focus-visible {
+			outline: 2px solid var(--primary-highlight);
+			outline-offset: -2px;
+			border-radius: 1rem;
+		}
+		
+		.question-text {
+			font-weight: 600;
+			font-size: 1rem;
+			color: var(--text-main);
+			padding-right: 1rem;
+		}
+		
+		/* Icon styling using CSS Background Image (SVG) */
+		.faq-icon {
+			display: block;
+			width: 24px;
+			height: 24px;
+			min-width: 24px; /* prevent shrinking */
+			/* Chevron Right SVG URL-encoded */
+			background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%231e293b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='9 18 15 12 9 6'%3E%3C/polyline%3E%3C/svg%3E");
+			background-repeat: no-repeat;
+			background-position: center;
+			transition: transform var(--transition-speed) ease;
+		}
+		
+		/* Rotation for active state (Right -> Down = 90deg) */
+		.faq-item.active .faq-icon {
+			transform: rotate(90deg);
+		}
+		
+		/* Modern Grid Animation for height */
+		.faq-answer {
+			display: grid;
+			grid-template-rows: 0fr;
+			/* transition: grid-template-rows var(--transition-speed) ease-out; */
+			overflow: hidden;
+			height: 0;
+			color: var(--text-muted);
+		}
+		
+		.faq-item.active .faq-answer {
+			grid-template-rows: 1fr;
+			height: auto;
+		}
+		
+		.answer-inner {
+			overflow: hidden;
+			padding: 0rem 1.5rem 1.5rem;
+		}
+		
+		.answer-inner p {
+			margin-bottom: 1rem;
+		}
+		.answer-inner p:last-child {
+			margin-bottom: 0;
+		}
+		
+		@media (max-width: 640px) {
+			.faq-section {
+				padding-inline: 1rem;
+			}
+		}
+	</style>
+</head>
+<body>
+
+	<div class="faq-section">
+		<div class="faq-header">
+			<h2>Frequently Asked Questions</h2>
+			<p>Essential Web Development Questions and Answers</p>
+		</div>
+		
+		<div class="faq-list" id="faqContainer">
+			<!-- Generated 5 Items for demo -->
+			
+			<div class="faq-item">
+				<button class="faq-question" aria-expanded="false">
+					<span class="question-text">What is responsive web design?</span>
+					<span class="faq-icon"></span>
+				</button>
+				<div class="faq-answer">
+					<div class="answer-inner">
+						<p>Responsive web design is an approach that makes web pages render well on various devices and screen sizes by using flexible layouts, flexible images, and CSS media queries. Instead of creating separate mobile and desktop versions, responsive design uses a single codebase that adapts its layout and content based on the viewport size. Key techniques include fluid grids (using percentages instead of fixed pixels), flexible images (max-width: 100%), and media queries to apply different styles at specific breakpoints.</p>
+					</div>
+				</div>
+			</div>
+			
+			<div class="faq-item">
+				<button class="faq-question" aria-expanded="false">
+					<span class="question-text">What is HTML?</span>
+					<span class="faq-icon"></span>
+				</button>
+				<div class="faq-answer">
+					<div class="answer-inner">
+						<p><strong>HTML</strong> stands for <strong>Hyper Text Markup Language</strong>. HTML is the standard markup language for creating Web pages. HTML describes the structure of a Web page. HTML consists of a series of elements. HTML elements tell the browser how to display the content.</p>
+					</div>
+				</div>
+			</div>
+			
+			<div class="faq-item">
+				<button class="faq-question" aria-expanded="false">
+					<span class="question-text">Cascading Style Sheets (CSS) definition</span>
+					<span class="faq-icon"></span>
+				</button>
+				<div class="faq-answer">
+					<div class="answer-inner">
+						<p><strong>Cascading Style Sheets (CSS)</strong> is a style sheet language used for specifying the presentation and styling of a document written in a markup language, such as HTML or XML (including XML dialects such as SVG, MathML, or XHTML). CSS is a cornerstone technology of the World Wide Web, alongside HTML and JavaScript.</p>
+						<p>CSS is a cornerstone technology of the World Wide Web, alongside HTML and JavaScript.</p>
+					</div>
+				</div>
+			</div>
+			
+			<div class="faq-item">
+				<button class="faq-question" aria-expanded="false">
+					<span class="question-text">What is PHP programming language?</span>
+					<span class="faq-icon"></span>
+				</button>
+				<div class="faq-answer">
+					<div class="answer-inner">
+						<p>PHP (short for Hypertext PreProcessor) is the most widely used open source and server-side scripting language. It is used to build the web apps of many tech giants like Facebook and to construct many CMS (Content Management systems) like WordPress, Drupal, Shopify, and WooCommerce.</p>
+						<p>PHP is mainly used for web development and excels in this area. Though initially, developers used it to create dynamic web pages, they prefer to use this scripting language to build the server side of web applications. However, PHP is originally a general-purpose language, so it may have other implementations if needed. For example, it is possible to build desktop applications using PHP. Moreover, starting from version 5, PHP supports object-oriented programming offering a whole new set of capabilities.</p>
+						<p>The versatility of this scripting language results from its excellent ability to combine with other programming languages.</p>
+					</div>
+				</div>
+			</div>
+			
+			<div class="faq-item">
+				<button class="faq-question" aria-expanded="false">
+					<span class="question-text">How about JavaScript programming language?</span>
+					<span class="faq-icon"></span>
+				</button>
+				<div class="faq-answer">
+					<div class="answer-inner">
+						<p>JavaScript is a text-based programming language used both on the client-side and server-side that allows you to make web pages interactive. Where HTML and CSS are languages that give structure and style to web pages, JavaScript gives web pages interactive elements that engage a user. Incorporating JavaScript improves the user experience of the web page by converting it from a static page into an interactive one. To recap, JavaScript adds behavior to web pages.</p>
+						<p>JavaScript is most known as a web-based language because it's native to the web browser. The web browser can naturally understand the language, like how a native English speaker can naturally understand English. JavaScript is versatile for various applications, such as software, hardware controls and servers.</p>
+						<p>Developers use JavaScript to build complex interactive websites and browser games and to connect servers to websites and web applications. Because of this versatility, it's easy to see why this language is the world's most commonly used programming language.</p>
+					</div>
+				</div>
+			</div>
+			
+			<div class="faq-item">
+				<button class="faq-question" aria-expanded="false">
+					<span class="question-text">What is WordPress?</span>
+					<span class="faq-icon"></span>
+				</button>
+				<div class="faq-answer">
+					<div class="answer-inner">
+						<p>Introduced in 2003, <strong>WordPress</strong> today is an extremely popular, open source content management platform used for creating websites, blog sites and even apps. Approximately 30% of the web uses WordPress.</p>
+						<p><strong>WordPress</strong> offers several important benefits for both content creators and IT administrators. For example, it provides a high degree of flexibility without requiring extensive design or development work. It’s also simple to use and manage. And importantly, WordPress supports various deployment scenarios so you can integrate this platform into your environment according to your architectural preferences.</p>
+					</div>
+				</div>
+			</div>
+			
+			
+			<div class="faq-item">
+				<button class="faq-question" aria-expanded="false">
+					<span class="question-text">How to prevent a CSRF attack?</span>
+					<span class="faq-icon"></span>
+				</button>
+				<div class="faq-answer">
+					<div class="answer-inner">
+						<p>The best defense against a CSRF attack is to equip applications with a way to distinguish between legitimate and forged HTTP requests. One of the most effective ways is to change the way that applications manage cookies and CSRF tokens. Most of today's applications have built-in CSRF token defenses that help avert the risk of an application attack. However, as they are built-in, these defenses must be constantly configured to provide the strongest line of defense.</p>
+					</div>
+				</div>
+			</div>
+			
+			<div class="faq-item">
+				<button class="faq-question" aria-expanded="false">
+					<span class="question-text">What is an API, and what is REST?</span>
+					<span class="faq-icon"></span>
+				</button>
+				<div class="faq-answer">
+					<div class="answer-inner">
+						<p><strong>An API (Application Programming Interface)</strong> is a set of rules and protocols that allows different software applications to communicate with each other, defining how requests and responses should be structured. <strong>REST (Representational State Transfer)</strong> is an architectural style for designing networked applications, typically using HTTP methods (GET, POST, PUT, DELETE) to perform CRUD operations on resources identified by URLs. RESTful APIs are stateless, use standard HTTP methods, return data in formats like JSON, and are widely adopted for web services due to their simplicity and scalability.</p>
+					</div>
+				</div>
+			</div>
+			
+			<div class="faq-item">
+				<button class="faq-question" aria-expanded="false">
+					<span class="question-text">What is web performance optimization and why does it matter?</span>
+					<span class="faq-icon"></span>
+				</button>
+				<div class="faq-answer">
+					<div class="answer-inner">
+						<p>Web performance optimisation involves techniques to make websites load faster and run more smoothly, directly impacting user experience, engagement, and search rankings. Slow sites lead to higher bounce rates, lower conversions, and poor SEO. Key metrics include First Contentful Paint, Largest Contentful Paint, Time to Interactive, and Cumulative Layout Shift. Optimisation strategies include minimising HTTP requests, compressing assets, lazy loading, using CDNs, optimising images, code splitting, caching, and reducing JavaScript execution time.</p>
+					</div>
+				</div>
+			</div>
+			
+			<div class="faq-item">
+				<button class="faq-question" aria-expanded="false">
+					<span class="question-text">What are Web Accessibility (a11y) standards and why are they important?</span>
+					<span class="faq-icon"></span>
+				</button>
+				<div class="faq-answer">
+					<div class="answer-inner">
+						<p><strong>Web accessibility</strong> ensures websites are usable by everyone, including people with disabilities (visual, auditory, motor, and cognitive). WCAG (Web Content Accessibility Guidelines) provides standards organised around four principles: Perceivable (information presentable to all users), Operable (interface navigable by all), Understandable (information and operation clear), and Robust (compatible with assistive technologies). Key practices include semantic HTML, keyboard navigation, ARIA labels, colour contrast, alt text for images, and captions for videos. Accessibility is both a legal requirement in many jurisdictions and an ethical obligation that also improves overall user experience and SEO.</p>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+	
+	<script>
+		document.addEventListener('DOMContentLoaded', () => {
+			const faqContainer = document.getElementById('faqContainer');
+			
+			// Event Delegation: One listener for the whole list
+			faqContainer.addEventListener('click', (e) => {
+				// Find the closest button if clicked inside
+				const button = e.target.closest('.faq-question');
+				
+				if (!button) return; // Clicked outside a button
+				
+				const item = button.closest('.faq-item');
+				const isExpanded = item.classList.contains('active');
+				
+				// Optional: Close others (Accordian behavior)
+				// Uncomment the lines below if you want only one open at a time
+				/*
+				const allItems = faqContainer.querySelectorAll('.faq-item');
+				allItems.forEach(i => {
+					if (i !== item) {
+						i.classList.remove('active');
+						i.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+					}
+				});
+				*/
+				
+				// Toggle current
+				if (isExpanded) {
+					item.classList.remove('active');
+					button.setAttribute('aria-expanded', 'false');
+				} else {
+					item.classList.add('active');
+					button.setAttribute('aria-expanded', 'true');
+				}
+			});
+		});
+	</script>
+</body>
+</html>

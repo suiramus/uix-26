@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>OpenRouter · FAQ Section (Pricing)</title>
+  <!-- Google Fonts & simple reset for clean typography matching modern SaaS style -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <style>
+	* {
+	  margin: 0;
+	  padding: 0;
+	  box-sizing: border-box;
+	}
+
+	body {
+	  background: #f8fafc;
+	  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, sans-serif;
+	  color: #0f172a;
+	  line-height: 1.5;
+	}
+
+	/* main container — centered, cozy but spacious */
+	.faq-section {
+	  max-width: 880px;
+	  margin: 3rem auto;
+	  padding: 2rem 1.5rem;
+	  background: #ffffff;
+	  border-radius: 2rem;
+	  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.03), 0 2px 6px rgba(0, 0, 0, 0.02);
+	}
+
+	/* header styling: like the clean "Frequently Asked Questions" */
+	.faq-header {
+	  margin-bottom: 2rem;
+	  text-align: left;
+	}
+
+	.faq-header h2 {
+	  font-size: 1.8rem;
+	  font-weight: 700;
+	  letter-spacing: -0.01em;
+	  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+	  background-clip: text;
+	  -webkit-background-clip: text;
+	  color: transparent;
+	  margin-bottom: 0.5rem;
+	}
+
+	.faq-header p {
+	  color: #475569;
+	  font-size: 1rem;
+	  font-weight: 400;
+	  border-left: 3px solid #e2e8f0;
+	  padding-left: 1rem;
+	  margin-top: 0.25rem;
+	}
+
+	/* accordion list container */
+	.faq-list {
+	  display: flex;
+	  flex-direction: column;
+	  gap: 0.75rem;
+	}
+
+	/* each faq item */
+	.faq-item {
+	  background: #ffffff;
+	  border-radius: 1.25rem;
+	  border: 1px solid #eef2f6;
+	  transition: all 0.2s ease;
+	  overflow: hidden;
+	  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+	}
+
+	.faq-item:hover {
+	  border-color: #cbd5e1;
+	  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+	}
+
+	/* question button */
+	.faq-question {
+	  width: 100%;
+	  background: transparent;
+	  border: none;
+	  padding: 1.25rem 1.5rem;
+	  display: flex;
+	  justify-content: space-between;
+	  align-items: center;
+	  cursor: pointer;
+	  font-family: inherit;
+	  text-align: left;
+	  transition: background 0.2s;
+	}
+
+	.faq-question:focus-visible {
+	  outline: 2px solid #3b82f6;
+	  outline-offset: -2px;
+	  border-radius: 1rem;
+	}
+
+	.question-text {
+	  font-weight: 600;
+	  font-size: 1rem;
+	  color: #0f172a;
+	  letter-spacing: -0.2px;
+	  transition: color 0.2s;
+	  flex: 1;
+	  padding-right: 1rem;
+	}
+
+	/* icon container (animated plus/minus style) */
+	.faq-icon {
+	  display: flex;
+	  align-items: center;
+	  justify-content: center;
+	  width: 28px;
+	  height: 28px;
+	  border-radius: 40px;
+	  background: #f1f5f9;
+	  transition: background 0.2s, transform 0.2s;
+	}
+
+	.faq-icon svg {
+	  width: 18px;
+	  height: 18px;
+	  stroke: #1e293b;
+	  stroke-width: 2;
+	  fill: none;
+	  transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+	}
+
+	.faq-item.active .faq-icon svg {
+	  transform: rotate(45deg);
+	}
+
+	.faq-question:hover .faq-icon {
+	  background: #e6edf4;
+	}
+
+	/* answer panel */
+	.faq-answer {
+	  max-height: 0;
+	  overflow: hidden;
+	  transition: max-height 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1), padding 0.2s;
+	  background-color: #fefefe;
+	  border-top: 1px solid transparent;
+	}
+
+	.faq-item.active .faq-answer {
+	  max-height: 480px;    /* enough for longer content */
+	  border-top-color: #f1f5f9;
+	}
+
+	.answer-inner {
+	  padding: 0 1.5rem 1.5rem 1.5rem;
+	  color: #334155;
+	  font-size: 0.95rem;
+	  line-height: 1.55;
+	}
+
+	/* lorem ipsum styling with subtle readability */
+	.answer-inner p {
+	  margin-bottom: 0.85rem;
+	}
+
+	.answer-inner p:last-child {
+	  margin-bottom: 0;
+	}
+
+	.answer-inner strong {
+	  color: #0f172a;
+	  font-weight: 600;
+	}
+
+	/* small decorative micro-details */
+	.faq-divider {
+	  margin-top: 2.5rem;
+	  text-align: center;
+	  font-size: 0.8rem;
+	  color: #94a3b8;
+	  border-top: 1px solid #eef2f6;
+	  padding-top: 1.5rem;
+	}
+
+	/* responsive */
+	@media (max-width: 640px) {
+	  .faq-section {
+		margin: 1.5rem;
+		padding: 1.5rem;
+	  }
+	  .faq-question {
+		padding: 1rem 1.25rem;
+	  }
+	  .answer-inner {
+		padding: 0 1.25rem 1.25rem 1.25rem;
+	  }
+	  .question-text {
+		font-size: 0.95rem;
+	  }
+	}
+
+	/* optional subtle animation for first load */
+	@keyframes fadeSlide {
+	  0% { opacity: 0; transform: translateY(6px); }
+	  100% { opacity: 1; transform: translateY(0); }
+	}
+	.faq-item {
+	  animation: fadeSlide 0.25s ease-out forwards;
+	  opacity: 0;
+	}
+	.faq-item:nth-child(1) { animation-delay: 0.02s; }
+	.faq-item:nth-child(2) { animation-delay: 0.05s; }
+	.faq-item:nth-child(3) { animation-delay: 0.08s; }
+	.faq-item:nth-child(4) { animation-delay: 0.11s; }
+	.faq-item:nth-child(5) { animation-delay: 0.14s; }
+	.faq-item:nth-child(6) { animation-delay: 0.17s; }
+	.faq-item:nth-child(7) { animation-delay: 0.20s; }
+	.faq-item:nth-child(8) { animation-delay: 0.23s; }
+	.faq-item:nth-child(9) { animation-delay: 0.26s; }
+	.faq-item:nth-child(10) { animation-delay: 0.29s; }
+	.faq-item:nth-child(11) { animation-delay: 0.32s; }
+  </style>
+</head>
+<body>
+  <main>
+	<div class="faq-section">
+	  <div class="faq-header">
+		<h2>Frequently Asked Questions</h2>
+		<p>Everything you need to know about billing, usage, and platform details</p>
+	  </div>
+
+	  <div class="faq-list" id="faqContainer">
+		<!-- Billing and Pricing group + exactly as per original structure, but with lorem ipsum text.
+			 All items reflect the questions from the screenshot, but answer copy is high-quality placeholder.
+			 The interactive accordion matches the modern OpenRouter aesthetic: minimal, clean, border radius, smooth transitions.
+		-->
+		<!-- 1. How are tokens billed? -->
+		<div class="faq-item">
+		  <button class="faq-question" aria-expanded="false">
+			<span class="question-text">How are tokens billed?</span>
+			<span class="faq-icon">
+			  <svg viewBox="0 0 24 24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+				<path d="M12 4v16M4 12h16" />
+			  </svg>
+			</span>
+		  </button>
+		  <div class="faq-answer">
+			<div class="answer-inner">
+			  <p><strong>Lorem ipsum dolor sit amet</strong>, consectetur adipiscing elit. Tokens are measured as approximately 4 characters of text for most models. Billing is per 1K tokens (input + output) across supported providers. We aggregate usage in real-time and deduct from your credit balance. Failed generations are not billed unless the model starts streaming a response. <em>Pricing transparency</em> is maintained via provider-level logs in your dashboard.</p>
+			  <p>For streaming responses, tokens are accumulated incrementally and billed after the complete turn. No hidden markups beyond the displayed per‑model rates.</p>
+			</div>
+		  </div>
+		</div>
+
+		<!-- 2. Do you mark up provider pricing? -->
+		<div class="faq-item">
+		  <button class="faq-question" aria-expanded="false">
+			<span class="question-text">Do you mark up provider pricing?</span>
+			<span class="faq-icon">
+			  <svg viewBox="0 0 24 24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+				<path d="M12 4v16M4 12h16" />
+			  </svg>
+			</span>
+		  </button>
+		  <div class="faq-answer">
+			<div class="answer-inner">
+			  <p><strong>Vestibulum ante ipsum primis in faucibus.</strong> We apply a small unified platform fee to cover routing, caching, and API gateway costs. However, the pricing you see on model cards reflects the total cost per token — there are no surprise additions. For BYOK (Bring Your Own Key), we charge zero markup on provider costs; you only pay for OpenRouter features like advanced fallbacks and analytics.</p>
+			  <p>Enterprise customers can access custom pricing agreements with volume-based discounts that often reduce the effective markup below standard rates.</p>
+			</div>
+		  </div>
+		</div>
+
+		<!-- 3. How is billing structured for BYOK, Pay-As-You-Go vs Enterprise? -->
+		<div class="faq-item">
+		  <button class="faq-question" aria-expanded="false">
+			<span class="question-text">How is billing structured for BYOK, Pay-As-You-Go vs Enterprise?</span>
+			<span class="faq-icon">
+			  <svg viewBox="0 0 24 24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+				<path d="M12 4v16M4 12h16" />
+			  </svg>
+			</span>
+		  </button>
+		  <div class="faq-answer">
+			<div class="answer-inner">
+			  <p><strong>BYOK:</strong> You provide your own API keys from providers (OpenAI, Anthropic, etc.) and we route traffic through your keys with optional fallback. Billing occurs directly on your provider accounts; OpenRouter charges zero gateway fees, only applicable subscription features.</p>
+			  <p><strong>Pay‑As‑You‑Go:</strong> Prepay credits via Stripe (credit card, crypto options). Usage is deducted per request. No monthly commitment.</p>
+			  <p><strong>Enterprise:</strong> Custom invoicing, net-30 terms, dedicated support, and hybrid pricing models including flat-rate commitments. Contact sales for tailored agreements.</p>
+			</div>
+		  </div>
+		</div>
+
+		<!-- 4. Are failed or fallback attempts billed? -->
+		<div class="faq-item">
+		  <button class="faq-question" aria-expanded="false">
+			<span class="question-text">Are failed or fallback attempts billed?</span>
+			<span class="faq-icon">
+			  <svg viewBox="0 0 24 24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+				<path d="M12 4v16M4 12h16" />
+			  </svg>
+			</span>
+		  </button>
+		  <div class="faq-answer">
+			<div class="answer-inner">
+			  <p><strong>Quisque euismod est at turpis dictum.</strong> In general, failed attempts due to authentication errors or model unavailability are <strong>not billed</strong>. However, if a fallback model is invoked and successfully returns a response, you are billed only for the successful fallback generation. Partial streaming errors where a response starts but fails mid-stream may incur token costs up to the point of failure — we display these events in the logs for transparency.</p>
+			  <p>No double billing occurs: the primary attempt is aborted before any cost accrual if the provider rejects the request.</p>
+			</div>
+		  </div>
+		</div>
+
+		<!-- 5. Do you offer volume discounts or annual plans? -->
+		<div class="faq-item">
+		  <button class="faq-question" aria-expanded="false">
+			<span class="question-text">Do you offer volume discounts or annual plans?</span>
+			<span class="faq-icon">
+			  <svg viewBox="0 0 24 24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+				<path d="M12 4v16M4 12h16" />
+			  </svg>
+			</span>
+		  </button>
+		  <div class="faq-answer">
+			<div class="answer-inner">
+			  <p><strong>Curabitur gravida arcu ac tortor dignissim convallis.</strong> Yes. For high-volume usage (> $5,000/month), we provide custom volume discounts that reduce per‑token pricing. Annual prepayment plans are available for both Pay-As-You-Go and Enterprise tiers, offering up to 15% savings compared to monthly credit purchases. Reach out to our team to review your usage and receive a tailored proposal.</p>
+			  <p>Additionally, startups and research institutions may qualify for educational grants or subsidized credits.</p>
+			</div>
+		  </div>
+		</div>
+
+		<!-- 6. Are streaming responses billed differently? -->
+		<div class="faq-item">
+		  <button class="faq-question" aria-expanded="false">
+			<span class="question-text">Are streaming responses billed differently?</span>
+			<span class="faq-icon">
+			  <svg viewBox="0 0 24 24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+				<path d="M12 4v16M4 12h16" />
+			  </svg>
+			</span>
+		  </button>
+		  <div class="faq-answer">
+			<div class="answer-inner">
+			  <p><strong>Pellentesque habitant morbi tristique senectus.</strong> Streaming responses are billed based on the total tokens streamed, not per event. The billing logic aggregates both input tokens and the final concatenated output tokens. There is no extra “streaming surcharge”. You can monitor usage in real time via the dashboard metrics. The same per‑model rates apply irrespective of streaming vs non‑streaming requests.</p>
+			  <p>For very long streaming sessions, we buffer token usage and report costs once the stream completes or times out.</p>
+			</div>
+		  </div>
+		</div>
+
+		<!-- 7. What payment methods do you accept? -->
+		<div class="faq-item">
+		  <button class="faq-question" aria-expanded="false">
+			<span class="question-text">What payment methods do you accept?</span>
+			<span class="faq-icon">
+			  <svg viewBox="0 0 24 24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+				<path d="M12 4v16M4 12h16" />
+			  </svg>
+			</span>
+		  </button>
+		  <div class="faq-answer">
+			<div class="answer-inner">
+			  <p><strong>Donec pede justo, fringilla vel, aliquet nec.</strong> We accept all major credit and debit cards (Visa, Mastercard, American Express) via Stripe. For Pay-As-You-Go customers, we also support cryptocurrency payments (USDC, ETH on selected networks) and bank transfers for larger top-ups. Enterprise clients can pay via ACH, wire transfer, or traditional invoicing. Prepayments are securely processed and reflected instantly in your credit balance.</p>
+			  <p>All transactions appear on your billing history with clear line‑item details per model.</p>
+			</div>
+		  </div>
+		</div>
+
+		<!-- 8. Are taxes (VAT/GST) included in prices? -->
+		<div class="faq-item">
+		  <button class="faq-question" aria-expanded="false">
+			<span class="question-text">Are taxes (VAT/GST) included in prices?</span>
+			<span class="faq-icon">
+			  <svg viewBox="0 0 24 24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+				<path d="M12 4v16M4 12h16" />
+			  </svg>
+			</span>
+		  </button>
+		  <div class="faq-answer">
+			<div class="answer-inner">
+			  <p><strong>Fusce convallis metus id felis luctus.</strong> For customers outside the EU and certain regions, displayed prices exclude taxes. For EU businesses and consumers, VAT (or applicable digital services tax) is added at checkout based on your location and VAT ID validation. If you provide a valid VAT number, we may reverse the charge. US customers do not pay sales tax on software credits. For all other countries, local GST may apply depending on tax regulations. Enterprise customers receive tax-exempt invoices when eligible.</p>
+			  <p>You can download detailed tax receipts from the billing panel.</p>
+			</div>
+		  </div>
+		</div>
+
+		<!-- 9. Is there a minimum spend or lock-in on Pay-as-you-go? -->
+		<div class="faq-item">
+		  <button class="faq-question" aria-expanded="false">
+			<span class="question-text">Is there a minimum spend or lock-in on Pay-as-you-go?</span>
+			<span class="faq-icon">
+			  <svg viewBox="0 0 24 24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+				<path d="M12 4v16M4 12h16" />
+			  </svg>
+			</span>
+		  </button>
+		  <div class="faq-answer">
+			<div class="answer-inner">
+			  <p><strong>Nullam dictum felis eu pede mollis pretium.</strong> Absolutely no minimum spend — start with as little as $5 in credits. There’s no lock-in contract; you pay only for what you use. Credits never expire, and you can request a refund for unused balance (subject to our refund policy). This flexible model lets you scale from hobby projects to production workloads without commitment. Enterprises may negotiate reserved capacity, but the standard Pay-As-You-Go tier remains commitment‑free.</p>
+			  <p>You can cancel or pause your account at any time via dashboard settings.</p>
+			</div>
+		  </div>
+		</div>
+
+		<!-- Extra usage/rate limits note: to match the "Usage and Rate Limits" vibe we add one bonus FAQ as a natural extension of the original pricing page FAQ -->
+		<div class="faq-item">
+		  <button class="faq-question" aria-expanded="false">
+			<span class="question-text">What are default rate limits and can they be raised?</span>
+			<span class="faq-icon">
+			  <svg viewBox="0 0 24 24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+				<path d="M12 4v16M4 12h16" />
+			  </svg>
+			</span>
+		  </button>
+		  <div class="faq-answer">
+			<div class="answer-inner">
+			  <p><strong>Suspendisse potenti.</strong> Default rate limits vary by model popularity and your verification status. Free-tier users get moderate limits (60–200 requests per minute). After adding payment method, limits increase significantly. For production workloads, we can raise rate limits further upon request — just contact support. Enterprise plans include custom rate limiting and dedicated throughput guarantees.</p>
+			  <p>Usage limits are automatically displayed in your account's developer settings. We continuously optimize to prevent throttling during traffic spikes.</p>
+			</div>
+		  </div>
+		</div>
+	  </div>
+	  <div class="faq-divider">
+		⚡ Need more answers? Visit our docs or contact support@openrouter.ai
+	  </div>
+	</div>
+  </main>
+
+  <!-- JavaScript for accordion behavior: smooth open/close, single/multi toggling (allowing multiple open, same as typical FAQ, but you can close individually) -->
+  <script>
+	(function() {
+	  const faqItems = document.querySelectorAll('.faq-item');
+      
+	  function toggleItem(item, expand) {
+		const button = item.querySelector('.faq-question');
+		const isExpanded = item.classList.contains('active');
+        
+		if (expand === undefined) {
+		  // toggle
+		  if (isExpanded) {
+			item.classList.remove('active');
+			button.setAttribute('aria-expanded', 'false');
+		  } else {
+			item.classList.add('active');
+			button.setAttribute('aria-expanded', 'true');
+		  }
+		} else {
+		  // force expand or collapse
+		  if (expand && !isExpanded) {
+			item.classList.add('active');
+			button.setAttribute('aria-expanded', 'true');
+		  } else if (!expand && isExpanded) {
+			item.classList.remove('active');
+			button.setAttribute('aria-expanded', 'false');
+		  }
+		}
+	  }
+      
+	  // Attach click event to each question button
+	  faqItems.forEach(item => {
+		const questionBtn = item.querySelector('.faq-question');
+		if (questionBtn) {
+		  questionBtn.addEventListener('click', (e) => {
+			e.stopPropagation();
+			toggleItem(item);
+		  });
+		}
+	  });
+      
+	  // optional: set first item open to hint interactivity? 
+	  // But to maintain clean default look, leave all collapsed like modern pricing pages.
+	  // However for better user preview, we can open the first FAQ? Not necessary, but adds no harm.
+	  // Usually OpenRouter keeps all closed. We keep closed but functional.
+	  // For improved accessibility, we set no default open.
+      
+	  // small additional: ensure that on window resize, any max-height issues are resolved
+	  // but since max-height is generous, it's fine.
+	})();
+  </script>
+</body>
+</html>
