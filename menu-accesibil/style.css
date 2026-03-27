@@ -1,0 +1,298 @@
+/* CSS Meniu Responsiv - Versiune Optimizată 
+	Prefix: kzn_
+*/
+
+:root {
+	--kzn-bg: #ffffff;
+	--kzn-text: #1a1a1a;
+	--kzn-accent: #4091f7;
+	--kzn-gray: #f5f5f7;
+	--kzn-transition: all 0.3s ease;
+
+	/* Iconițe Lucide (SVG Data URI) */
+	--kzn-icon-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%231a1a1a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+	--kzn-icon-menu: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%231a1a1a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='4' x2='20' y1='12' y2='12'/%3E%3Cline x1='4' x2='20' y1='6' y2='6'/%3E%3Cline x1='4' x2='20' y1='18' y2='18'/%3E%3C/svg%3E");
+	--kzn-icon-x: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%231a1a1a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 6 6 18'/%3E%3Cpath d='m6 6 12 12'/%3E%3C/svg%3E");
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+	background-color: #fafafa;
+}
+
+/* Header & Container */
+.kzn-header {
+	background: var(--kzn-bg);
+	border-bottom: 1px solid #eee;
+	padding: 0 20px;
+	height: 80px;
+	display: flex;
+	align-items: center;
+	position: sticky; /* Recomandat pentru UX */
+	top: 0;
+	z-index: 901;
+	transition: transform 0.3s ease;
+}
+
+/* Starea inițială (Topul paginii) */
+.kzn-header {
+	position: sticky;
+	top: 0;
+	background-color: var(--kzn-bg); /* Solid alb la început */
+	transition: 
+		transform 0.3s ease, 
+		background-color 0.3s ease, 
+		backdrop-filter 0.3s ease,
+		box-shadow 0.3s ease;
+	z-index: 901;
+	border-bottom: 1px solid transparent; /* Invizibil la început */
+}
+
+/* Starea când am început derularea */
+.kzn-header.kzn-header-scrolled {
+	background-color: rgba(255, 255, 255, 0.8); /* Alb semitransparent */
+	backdrop-filter: blur(10px); /* Efectul de blur */
+	-webkit-backdrop-filter: blur(10px); /* Suport pentru Safari */
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+	border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* Păstrăm și logica de ascundere pe scroll în jos */
+.kzn-header-hidden {
+	transform: translateY(-100%);
+}
+
+.kzn-container {
+	width: 100%;
+	max-width: 1200px;
+	margin: 0 auto;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+/* Logo */
+.kzn-logo a {
+	text-decoration: none;
+	color: var(--kzn-text);
+	font-weight: 600;
+	font-size: 1.5rem;
+	letter-spacing: -0.2px;
+}
+
+.kzn-logo span {
+	color: var(--kzn-accent);
+}
+
+/* Meniu Lista */
+.kzn-menu-list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	gap: 30px;
+}
+
+.kzn-menu-item {
+	position: relative;
+}
+
+.kzn-menu-link {
+	text-decoration: none;
+	color: var(--kzn-text);
+	font-weight: 500;
+	font-size: 1rem;
+	padding: 30px 0;
+	display: block;
+	transition: var(--kzn-transition);
+}
+
+.kzn-menu-link:hover {
+	color: var(--kzn-accent);
+}
+
+/* Stiluri pentru săgeată (pseudo-element) */
+.has-submenu > .kzn-menu-link {
+	position: relative;
+	padding-right: 25px;
+}
+
+.has-submenu > .kzn-menu-link::after {
+	content: "";
+	position: absolute;
+	right: 5px;
+	top: 50%;
+	width: 18px;
+	height: 18px;
+	transform: translateY(-50%) rotate(0deg);
+	background-image: var(--kzn-icon-arrow);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: contain;
+	transition: transform 0.3s ease;
+	pointer-events: none;
+}
+
+/* Rotația săgeții pe mobil când e deschis */
+.has-submenu.is-open > .kzn-menu-link::after {
+	transform: translateY(-50%) rotate(180deg);
+}
+
+/* Submeniu Desktop */
+.kzn-submenu {
+	position: absolute;
+	top: 100%;
+	left: 0;
+	background: var(--kzn-bg);
+	min-width: 220px;
+	list-style: none;
+	padding: 10px 0;
+	margin: 0;
+	box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+	border-radius: 8px;
+	opacity: 0;
+	visibility: hidden;
+	transform: translateY(10px);
+	transition: var(--kzn-transition);
+	z-index: 901;
+}
+
+.kzn-submenu a {
+	display: block;
+	padding: 12px 20px;
+	text-decoration: none;
+	color: var(--kzn-text);
+	font-size: 0.95rem;
+	transition: background 0.2s;
+}
+
+.kzn-submenu a:hover {
+	background: var(--kzn-gray);
+	color: var(--kzn-accent);
+}
+
+/* Hover Desktop logic */
+
+.kzn-menu-item:hover .kzn-submenu {
+	opacity: 1;
+	visibility: visible;
+	transform: translateY(0);
+}
+	
+.kzn-menu-item:hover > .kzn-menu-link::after {
+	transform: translateY(-50%) rotate(180deg);
+}
+
+
+/* Iconițe Butoane Mobil */
+.kzn-icon-hamburger,
+.kzn-icon-close {
+	background-color: transparent;
+	background-repeat: no-repeat;
+	background-position: center right;
+	background-size: 24px;
+	border: none;
+	width: 44px; /* Dimensiune optimă pentru touch */
+	height: 44px;
+	cursor: pointer;
+	display: none;
+}
+
+.kzn-icon-hamburger {
+	background-image: var(--kzn-icon-menu);
+}
+
+.kzn-icon-close {
+	background-image: var(--kzn-icon-x);
+}
+
+/* Mobile Media Query */
+@media (max-width: 840px) {
+	.kzn-icon-close,
+	.kzn-icon-hamburger {
+		display: block;
+	}
+
+	.kzn-nav {
+		position: fixed;
+		top: 0;
+		right: -100%;
+		width: 300px;
+		height: 100%;
+		background: var(--kzn-bg);
+		z-index: 1001;
+		transition: var(--kzn-transition);
+		padding: 20px;
+		display: block;
+		overflow-y: auto; 
+		max-height: 100vh;
+		box-shadow: -5px 0 15px rgba(0,0,0,0.05);
+	}
+
+	.kzn-nav.is-active {
+		right: 0;
+	}
+
+	.kzn-nav-mobile-header {
+		display: flex;
+		justify-content: flex-end;
+		margin-bottom: 20px;
+	}
+
+	.kzn-menu-list {
+		flex-direction: column;
+		gap: 0;
+	}
+
+	.kzn-menu-link {
+		padding: 18px 0; /* Mărit pentru touch */
+		border-bottom: 1px solid var(--kzn-gray);
+	}
+
+	/* Reset submeniu pentru mobil */
+	.kzn-submenu {
+		position: static;
+		opacity: 1;
+		visibility: visible;
+		box-shadow: none;
+		transform: none;
+		display: none;
+		padding: 0;
+		background: #fafafa;
+		border-radius: 0;
+	}
+
+	.kzn-menu-item.is-open > .kzn-submenu {
+		display: block;
+	}
+	
+	.kzn-submenu a {
+		padding: 16px 20px;
+		border-bottom: 1px solid rgba(0,0,0,0.05);
+	}
+
+	.kzn-overlay {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: rgba(0,0,0,0.4);
+		z-index: 900;
+		opacity: 0;
+		visibility: hidden;
+		transition: var(--kzn-transition);
+	}
+
+	.kzn-overlay.is-active {
+		opacity: 1;
+		visibility: visible;
+	}
+}

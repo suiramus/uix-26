@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Meniu Accesibil Web Design</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+	<header class="kzn-header">
+		<div class="kzn-container">
+		
+			<div class="kzn-logo">
+				<a href="/">Menu<span>Accesibil</span></a>
+			</div>
+
+			<nav id="kzn_main_nav" class="kzn-nav" aria-label="Navigație Principală">
+			
+				<div class="kzn-nav-mobile-header">
+					<button id="kzn_close_menu" 
+							class="kzn-icon-close" 
+							aria-label="Închide meniul" 
+							aria-controls="kzn_main_nav"></button>
+				</div>
+			
+				<ul class="kzn-menu-list">
+					<li class="kzn-menu-item has-submenu">
+						<a href="#" 
+						   class="kzn-menu-link" 
+						   aria-haspopup="true" 
+						   aria-expanded="false"
+						   role="button">Servicii Design</a>
+					
+						<ul class="kzn-submenu" aria-label="Submeniu Servicii Design">
+							<li><a href="#">Interfețe Mobile</a></li>
+							<li><a href="#">Design de Produs</a></li>
+							<li><a href="#">Branding & Identitate</a></li>
+						</ul>
+					</li>
+
+					<li class="kzn-menu-item has-submenu">
+						<a href="#" 
+						   class="kzn-menu-link" 
+						   aria-haspopup="true" 
+						   aria-expanded="false"
+						   role="button">Dezvoltare</a>
+					
+						<ul class="kzn-submenu" aria-label="Submeniu Dezvoltare">
+							<li><a href="#">Frontend Modern</a></li>
+							<li><a href="#">Backend PHP</a></li>
+							<li><a href="#">Optimizare WordPress</a></li>
+							<li><a href="#">SEO OnPAge</a></li>
+							<li><a href="#">Security</a></li>
+							<li><a href="#">Custom CMS</a></li>
+						</ul>
+					</li>
+
+					<li class="kzn-menu-item">
+						<a href="#" class="kzn-menu-link">Portofoliu</a>
+					</li>
+
+					<li class="kzn-menu-item">
+						<a href="#" class="kzn-menu-link">Contact</a>
+					</li>
+				</ul>
+			</nav>
+
+			<button id="kzn_menu_trigger" 
+					class="kzn-icon-hamburger" 
+					aria-label="Deschide meniul" 
+					aria-controls="kzn_main_nav" 
+					aria-expanded="false"></button>
+		
+		</div>
+	</header>
+
+	<div id="kzn_overlay" class="kzn-overlay"></div>
+	
+	
+	<main style="margin-top: 0;">
+
+		<section style="padding: 100px 20px; background-color: #f0f4f8; text-align: center; border-bottom: 2px solid #e2e8f0;">
+			<div style="max-width: 800px; margin: 0 auto;">
+				<h1 style="font-size: 3.5rem; color: #1a1a1a; margin-bottom: 20px; letter-spacing: -2px;">Design Modern KZN</h1>
+				<p style="font-size: 1.25rem; color: #4a5568; line-height: 1.6; margin-bottom: 30px;">
+					Testăm comportamentul meniului responsiv. Verifică dacă overlay-ul acoperă corect acest conținut și dacă scroll-ul este blocat când meniul mobil este activ.
+				</p>
+				<button style="padding: 15px 35px; background-color: #4091f7; color: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer;">
+					Începe Proiectul
+				</button>
+			</div>
+		</section>
+
+		<section style="max-width: 1200px; margin: 60px auto; padding: 0 20px; display: flex; gap: 30px; flex-wrap: wrap; justify-content: center;">
+		
+			<div style="flex: 1; min-width: 300px; background: white; border: 1px solid #eee; border-radius: 12px; padding: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); transition: transform 0.3s ease;">
+				<div style="width: 50px; height: 50px; background: #eef5ff; border-radius: 8px; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; color: #4091f7; font-weight: bold;">01</div>
+				<h3 style="margin-bottom: 15px; color: #1a1a1a;">Strategie UX</h3>
+				<p style="color: #718096; line-height: 1.5;">Analizăm comportamentul utilizatorilor pentru a crea interfețe care convertesc vizitatorii în clienți loiali.</p>
+			</div>
+
+			<div style="flex: 1; min-width: 300px; background: white; border: 1px solid #eee; border-radius: 12px; padding: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.02);">
+				<div style="width: 50px; height: 50px; background: #eef5ff; border-radius: 8px; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; color: #4091f7; font-weight: bold;">02</div>
+				<h3 style="margin-bottom: 15px; color: #1a1a1a;">Dezvoltare PHP</h3>
+				<p style="color: #718096; line-height: 1.5;">Cod curat, modular și performant, optimizat special pentru mediul WordPress fără a folosi plugin-uri inutile.</p>
+			</div>
+
+			<div style="flex: 1; min-width: 300px; background: white; border: 1px solid #eee; border-radius: 12px; padding: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.02);">
+				<div style="width: 50px; height: 50px; background: #eef5ff; border-radius: 8px; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; color: #4091f7; font-weight: bold;">03</div>
+				<h3 style="margin-bottom: 15px; color: #1a1a1a;">Optimizare SEO</h3>
+				<p style="color: #718096; line-height: 1.5;">Structură semantică corectă (H1-H6) și viteză de încărcare fulgerătoare pentru o clasare superioară.</p>
+			</div>
+			
+			<div style="flex: 1; min-width: 300px; background: white; border: 1px solid #eee; border-radius: 12px; padding: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.02);">
+				<div style="width: 50px; height: 50px; background: #eef5ff; border-radius: 8px; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; color: #4091f7; font-weight: bold;">03</div>
+				<h3 style="margin-bottom: 15px; color: #1a1a1a;">Optimizare SEO</h3>
+				<p style="color: #718096; line-height: 1.5;">Structură semantică corectă (H1-H6) și viteză de încărcare fulgerătoare pentru o clasare superioară.</p>
+			</div>
+			
+			<div style="flex: 1; min-width: 300px; background: white; border: 1px solid #eee; border-radius: 12px; padding: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.02);">
+				<div style="width: 50px; height: 50px; background: #eef5ff; border-radius: 8px; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; color: #4091f7; font-weight: bold;">03</div>
+				<h3 style="margin-bottom: 15px; color: #1a1a1a;">Optimizare SEO</h3>
+				<p style="color: #718096; line-height: 1.5;">Structură semantică corectă (H1-H6) și viteză de încărcare fulgerătoare pentru o clasare superioară.</p>
+			</div>
+			
+			<div style="flex: 1; min-width: 300px; background: white; border: 1px solid #eee; border-radius: 12px; padding: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.02);">
+				<div style="width: 50px; height: 50px; background: #eef5ff; border-radius: 8px; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; color: #4091f7; font-weight: bold;">03</div>
+				<h3 style="margin-bottom: 15px; color: #1a1a1a;">Optimizare SEO</h3>
+				<p style="color: #718096; line-height: 1.5;">Structură semantică corectă (H1-H6) și viteză de încărcare fulgerătoare pentru o clasare superioară.</p>
+			</div>
+			
+			<div style="flex: 1; min-width: 300px; background: white; border: 1px solid #eee; border-radius: 12px; padding: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); transition: transform 0.3s ease;">
+				<div style="width: 50px; height: 50px; background: #eef5ff; border-radius: 8px; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; color: #4091f7; font-weight: bold;">01</div>
+				<h3 style="margin-bottom: 15px; color: #1a1a1a;">Strategie UX</h3>
+				<p style="color: #718096; line-height: 1.5;">Analizăm comportamentul utilizatorilor pentru a crea interfețe care convertesc vizitatorii în clienți loiali.</p>
+			</div>
+
+			<div style="flex: 1; min-width: 300px; background: white; border: 1px solid #eee; border-radius: 12px; padding: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.02);">
+				<div style="width: 50px; height: 50px; background: #eef5ff; border-radius: 8px; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; color: #4091f7; font-weight: bold;">02</div>
+				<h3 style="margin-bottom: 15px; color: #1a1a1a;">Dezvoltare PHP</h3>
+				<p style="color: #718096; line-height: 1.5;">Cod curat, modular și performant, optimizat special pentru mediul WordPress fără a folosi plugin-uri inutile.</p>
+			</div>
+
+		</section>
+
+	</main>
+	
+	
+	<footer style="background-color: #1a1a1a; color: white; padding: 80px 20px 40px 20px; margin-top: 60px;">
+		<div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 40px; justify-content: space-between;">
+		
+			<div style="flex: 1; min-width: 250px;">
+				<h4 style="color: #4091f7; font-size: 1.2rem; margin-bottom: 20px;">DesignKZN</h4>
+				<p style="color: #a0aec0; line-height: 1.6; font-size: 0.9rem;">
+					Construim soluții digitale performante, fără compromisuri. Cod curat, viteză maximă și design centrat pe utilizator.
+				</p>
+			</div>
+
+			<div style="flex: 1; min-width: 200px;">
+				<h4 style="color: white; font-size: 1rem; margin-bottom: 20px;">Link-uri Rapide</h4>
+				<ul style="list-style: none; padding: 0; margin: 0;">
+					<li style="margin-bottom: 10px;"><a href="#" style="color: #a0aec0; text-decoration: none; font-size: 0.9rem;">Servicii</a></li>
+					<li style="margin-bottom: 10px;"><a href="#" style="color: #a0aec0; text-decoration: none; font-size: 0.9rem;">Portofoliu</a></li>
+					<li style="margin-bottom: 10px;"><a href="#" style="color: #a0aec0; text-decoration: none; font-size: 0.9rem;">Contact</a></li>
+				</ul>
+			</div>
+
+			<div style="flex: 1; min-width: 250px;">
+				<h4 style="color: white; font-size: 1rem; margin-bottom: 20px;">Newsletter</h4>
+				<div style="display: flex; gap: 10px;">
+					<input type="email" placeholder="Email-ul tău" style="padding: 10px; border-radius: 4px; border: 1px solid #4a5568; background: #2d3748; color: white; flex: 1;">
+					<button style="background: #4091f7; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer;">OK</button>
+				</div>
+			</div>
+
+		</div>
+
+		<div style="max-width: 1200px; margin: 60px auto 0; padding-top: 20px; border-top: 1px solid #2d3748; text-align: center; color: #718096; font-size: 0.8rem;">
+			&copy; 2026 DesignKZN. Toate drepturile rezervate. Realizat cu PHP pur și multă cafea.
+		</div>
+	</footer>
+	
+
+	<script src="script.js"></script>
+</body>
+</html>
