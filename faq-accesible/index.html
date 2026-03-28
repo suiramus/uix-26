@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+	<title>FAQ — Întrebări frecvente Web Design</title>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+	<style>
+		/* ========== VARIABILE SIMPLIFICATE ========== */
+		:root {
+			/* Culori principale - schimbă aici pentru a modifica întreaga temă */
+			--color-primary: #1e5f6b;      /* culoare accent principal */
+			--color-bg: #f8fafc;            /* fundal pagină */
+			--color-surface: #ffffff;       /* fundal carduri */
+			--color-text: #0f2b3d;          /* text principal */
+			--color-text-light: #2c5068;    /* text secundar */
+			--color-text-muted: #4b6a7f;    /* text mai palid */
+			--color-border: #eef2f8;        /* chenare */
+			--color-icon: #8aa9c2;          /* iconiță închisă */
+			--color-icon-active: #2c7f7f;   /* iconiță deschisă */
+        
+			/* Un singur border-radius pentru toate elementele */
+			--radius: 0.5rem;
+        
+			/* Spațiere simplă */
+			--space: 1rem;
+		}
+    
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+    
+		body {
+			background: var(--color-bg);
+			font-family: 'Inter', sans-serif;
+			color: var(--color-text);
+			line-height: 1.5;
+		}
+    
+		.faq-container {
+			max-width: 880px;
+			margin: 0 auto;
+			padding: 4rem 1.5rem;
+		}
+    
+		/* ========== HEADER ========== */
+		.faq-header {
+			text-align: center;
+			margin-bottom: 3rem;
+		}
+    
+		.faq-header h1 {
+			font-size: clamp(2rem, 1.5rem + 2.5vw, 2.8rem);
+			line-height: 1.1;
+			font-weight: 700;
+			text-wrap: balance;
+			letter-spacing: -0.02em;
+			color: var(--color-primary);
+			margin-bottom: 1rem;
+		}
+    
+		.faq-header .description {
+			font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+			text-wrap: balance;
+			color: var(--color-text-muted);
+			max-width: 620px;
+			margin: 0 auto;
+		}
+    
+		/* ========== FAQ LIST ========== */
+		.faq-list {
+			display: flex;
+			flex-direction: column;
+			gap: 1rem;
+		}
+    
+		.faq-item {
+			background: var(--color-surface);
+			border-radius: var(--radius);
+			box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03), 0 4px 12px rgba(0, 0, 0, 0.02);
+			border: 1px solid var(--color-border);
+		}
+    
+		.faq-item.open {
+			box-shadow: 0 12px 28px -12px rgba(0, 0, 0, 0.08);
+		}
+    
+		.faq-question {
+			width: 100%;
+			background: transparent;
+			border: none;
+			text-align: left;
+			padding: 1.4rem 1.8rem;
+			font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+			font-weight: 600;
+			color: var(--color-text);
+			cursor: pointer;
+			font-family: inherit;
+			border-radius: var(--radius);
+			transition: background 0.2s;
+			position: relative;
+		}
+    
+		.faq-question:hover {
+			background: #fdfdfe;
+		}
+    
+		.question-text {
+			display: inline-block;
+			padding-right: 2rem;
+			width: 100%;
+		}
+    
+		.faq-question::after {
+			content: "";
+			position: absolute;
+			right: 1.8rem;
+			top: 1.4rem;
+			width: 1.2rem;
+			height: 1.2rem;
+			background-color: var(--color-icon);
+			mask-size: contain;
+			mask-repeat: no-repeat;
+			mask-position: center;
+			-webkit-mask-size: contain;
+			-webkit-mask-repeat: no-repeat;
+			-webkit-mask-position: center;
+			transition: transform 0.3s ease;
+			mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+			-webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+		}
+    
+		.faq-item.open .faq-question::after {
+			transform: rotate(180deg);
+			background-color: var(--color-icon-active);
+		}
+    
+		/* Răspuns - folosind CSS Grid pentru tranziție lină */
+		.faq-answer {
+			display: grid;
+			grid-template-rows: 0fr;
+			transition: grid-template-rows 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+			background: var(--color-surface);
+			border-radius: 0 0 var(--radius) var(--radius);
+		}
+    
+		.faq-item.open .faq-answer {
+			grid-template-rows: 1fr;
+		}
+    
+		.answer-inner {
+			min-height: 0;
+			overflow: hidden;
+			padding: 0 1.8rem;
+			color: var(--color-text-light);
+			line-height: 1.55;
+			font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+		}
+    
+		.faq-item.open .answer-inner {
+			padding: 0 1.8rem 1.6rem 1.8rem;
+		}
+    
+		/* ========== STILURI INTERNE RĂSPUNS ========== */
+		.answer-inner p {
+			margin-bottom: 0.85rem;
+		}
+    
+		.answer-inner .highlight {
+			background: #e1f0ea;
+			padding: 0.2rem 0.5rem;
+			border-radius: 0.75rem;
+			font-weight: 500;
+			color: #1d6f6f;
+			font-size: 0.85rem;
+			display: inline-block;
+		}
+    
+		.answer-inner .badge-flow {
+			display: inline-block;
+			background: #eef2fc;
+			color: #2b6e7c;
+			font-size: 0.75rem;
+			font-weight: 600;
+			padding: 0.2rem 0.7rem;
+			border-radius: 9999px;
+			margin-right: 0.5rem;
+			margin-top: 0.25rem;
+		}
+    
+		.answer-inner small {
+			font-size: 0.8rem;
+			color: var(--color-text-muted);
+			display: inline-block;
+			margin-top: 0.5rem;
+		}
+    
+		/* ========== ACCESIBILITATE ========== */
+		.sr-only {
+			position: absolute;
+			width: 1px;
+			height: 1px;
+			padding: 0;
+			margin: -1px;
+			overflow: hidden;
+			clip: rect(0, 0, 0, 0);
+			white-space: nowrap;
+			border-width: 0;
+		}
+    
+		.faq-question:focus-visible {
+			outline: 3px solid var(--color-primary);
+			outline-offset: 2px;
+			border-radius: var(--radius);
+			background: #fdfdfe;
+		}
+    
+		.faq-question:focus:not(:focus-visible) {
+			outline: none;
+		}
+    
+		/* ========== RESPONSIVE ========== */
+		@media (max-width: 640px) {
+			.faq-container {
+				padding: 2rem 1.2rem;
+			}
+    
+			.faq-question {
+				padding: 1.1rem 1.2rem;
+			}
+    
+			.faq-question::after {
+				right: 1.2rem;
+				top: 1.1rem;
+			}
+    
+			.faq-item.open .answer-inner {
+				padding: 0 1.2rem 1.2rem 1.2rem;
+			}
+    
+			.answer-inner {
+				padding: 0 1.2rem;
+			}
+		}
+    
+		/* ========== ANIMAȚII REDUSE ========== */
+		@media (prefers-reduced-motion: reduce) {
+			.faq-answer {
+				transition: none;
+			}
+    
+			.faq-question::after {
+				transition: none;
+			}
+		}
+	</style>
+</head>
+<body>
+
+<div class="faq-container">
+	<div class="faq-header">
+		<h1>Întrebări frecvente Web Design</h1>
+		<div class="description">
+			Soluții moderne pentru design responsive, performanță web și experiență utilizator. Află răspunsuri la cele mai comune întrebări din domeniul web design.
+		</div>
+	</div>
+
+	<div class="faq-list">
+		<!-- Întrebare 1 -->
+		<div class="faq-item">
+			<button class="faq-question">
+				<span class="question-text">Care sunt principiile esențiale ale unui design responsive?</span>
+			</button>
+			<div class="faq-answer">
+				<div class="answer-inner">
+					<p>Designul responsive se bazează pe <span class="highlight">grid-uri fluide</span>, imagini flexibile și media queries. Utilizăm o abordare mobile-first, asigurându-ne că experiența pe dispozitive mobile este la fel de bună ca pe desktop. Framework-uri precum Tailwind CSS sau Bootstrap accelerează dezvoltarea.</p>
+					<p>Viteza de încărcare este un factor critic atât pentru <strong>retenția utilizatorilor</strong>, cât și pentru <strong>poziționarea în motoarele de căutare</strong>. O întârziere de 1 secundă poate reduce conversiile cu 7%. Optimizările includ: compresia imaginilor, lazy loading, minificarea CSS/JS și utilizarea unui CDN.</p>
+					<small>📱 Testare pe multiple dispozitive · Breakpoints personalizabile</small>
+				</div>
+			</div>
+		</div>
+
+		<!-- Întrebare 2 -->
+		<div class="faq-item">
+			<button class="faq-question">
+				<span class="question-text">Cum influențează viteza de încărcare experiența utilizatorului și SEO?</span>
+			</button>
+			<div class="faq-answer">
+				<div class="answer-inner">
+					<p>Viteza de încărcare este un factor critic atât pentru <strong>retenția utilizatorilor</strong>, cât și pentru <strong>poziționarea în motoarele de căutare</strong>. O întârziere de 1 secundă poate reduce conversiile cu 7%. Optimizările includ: compresia imaginilor, lazy loading, minificarea CSS/JS și utilizarea unui CDN.</p>
+					<div>
+						<span class="badge-flow">⚡ Core Web Vitals</span>
+						<span class="badge-flow">📊 Lighthouse 90+</span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Întrebare 3 -->
+		<div class="faq-item">
+			<button class="faq-question">
+				<span class="question-text">Ce diferență există între UI și UX design?</span>
+			</button>
+			<div class="faq-answer">
+				<div class="answer-inner">
+					<p><span class="highlight">UI (User Interface)</span> se referă la aspectul vizual: culori, tipografie, butoane, spațiere. <span class="highlight">UX (User Experience)</span> vizează întreaga experiență a utilizatorului: arhitectura informației, fluxurile de navigare, accesibilitatea și ușurința în utilizare. Ambele sunt esențiale pentru un produs de succes.</p>
+					<small>🎨 UI este puntea, UX este întreaga călătorie</small>
+				</div>
+			</div>
+		</div>
+
+		<!-- Întrebare 4 -->
+		<div class="faq-item">
+			<button class="faq-question">
+				<span class="question-text">Cum aleg între CSS Flexbox și Grid pentru layout?</span>
+			</button>
+			<div class="faq-answer">
+				<div class="answer-inner">
+					<p><strong>Flexbox</strong> este ideal pentru layout-uri unidimensionale (rând sau coloană) și distribuirea spațiului între elemente. <strong>CSS Grid</strong> excelează la layout-uri bidimensionale (rânduri și coloane simultan). Cel mai adesea, le combinăm: Grid pentru structura macro a paginii, Flexbox pentru componentele interne.</p>
+					<span class="badge-flow">📐 Grid pentru structură</span>
+					<span class="badge-flow">🔄 Flexbox pentru componente</span>
+				</div>
+			</div>
+		</div>
+
+		<!-- Întrebare 5 -->
+		<div class="faq-item">
+			<button class="faq-question">
+				<span class="question-text">Ce sunt variabilele CSS (custom properties) și de ce sunt utile?</span>
+			</button>
+			<div class="faq-answer">
+				<div class="answer-inner">
+					<p>Variabilele CSS permit definirea unor valori reutilizabile (culori, spațieri, tipografie) și actualizarea lor dinamică. Sunt utile pentru <strong>teme întunecate/deschise</strong>, întreținere mai ușoară și consistență vizuală. Pot fi modificate în timp real cu JavaScript fără a rescrie stiluri.</p>
+					<small>🎨 :root { --primary: #2c7f7f; } · suport în toate browserele moderne</small>
+				</div>
+			</div>
+		</div>
+
+		<!-- Întrebare 6 -->
+		<div class="faq-item">
+			<button class="faq-question">
+				<span class="question-text">Cum mă asigur că site-ul meu este accesibil (WCAG)?</span>
+			</button>
+			<div class="faq-answer">
+				<div class="answer-inner">
+					<p>Accesibilitatea implică: <span class="highlight">contrast suficient</span> între text și fundal, navigare completă cu tastatura, atribute ARIA corecte, text alternativ pentru imagini și structură semantică HTML (header, main, nav, etc). Testează cu axe sau Lighthouse pentru conformitate WCAG 2.1 nivel AA.</p>
+					<span class="badge-flow">♿ aria-* attributes</span>
+					<span class="badge-flow">⌨️ keyboard navigation</span>
+				</div>
+			</div>
+		</div>
+
+		<!-- Întrebare 7 -->
+		<div class="faq-item">
+			<button class="faq-question">
+				<span class="question-text">Ce sunt web font-urile și cum afectează performanța?</span>
+			</button>
+			<div class="faq-answer">
+				<div class="answer-inner">
+					<p>Web font-urile (Google Fonts, Adobe Fonts) îmbunătățesc designul, dar pot încetini încărcarea. Recomandări: <strong>preload</strong> pentru fonturi critice, subsetare (doar caracterele necesare), font-display: swap pentru a evita FOIT (flash of invisible text) și utilizarea a maxim 2-3 greutăți (weights).</p>
+					<small>📦 Variable fonts · optimizare cu font-display: swap</small>
+				</div>
+			</div>
+		</div>
+
+		<!-- Întrebare 8 -->
+		<div class="faq-item">
+			<button class="faq-question">
+				<span class="question-text">Cum optimizez imaginile pentru web fără a pierde calitatea?</span>
+			</button>
+			<div class="faq-answer">
+				<div class="answer-inner">
+					<p>Folosește formate moderne: <span class="highlight">WebP</span> sau <span class="highlight">AVIF</span> în loc de JPEG/PNG. Implementează lazy loading cu atributul loading="lazy", setează dimensiuni explicite (width/height) și utilizează elementul &lt;picture&gt; pentru imagini responsive. Straturi de compresie cu instrumente precum Squoosh sau ImageMagick.</p>
+					<span class="badge-flow">🖼️ WebP + lazy loading</span>
+					<span class="badge-flow">📱 srcset pentru responsive</span>
+				</div>
+			</div>
+		</div>
+
+		<!-- Întrebare 9 -->
+		<div class="faq-item">
+			<button class="faq-question">
+				<span class="question-text">Ce este arhitectura CSS și ce metodologii recomandați?</span>
+			</button>
+			<div class="faq-answer">
+				<div class="answer-inner">
+					<p>Arhitectura CSS organizează codul pentru scalabilitate și mentenanță. Metodologii populare: <strong>BEM</strong> (Block-Element-Modifier) pentru clase predictibile, <strong>SMACSS</strong> pentru categorizare, <strong>Atomic Design</strong> pentru componente. În echipe mari, CSS-in-JS sau Tailwind CSS oferă consistență sporită.</p>
+					<span class="highlight">⚡ Tailwind CSS · BEM · CSS Modules</span>
+				</div>
+			</div>
+		</div>
+
+		<!-- Întrebare 10 -->
+		<div class="faq-item">
+			<button class="faq-question">
+				<span class="question-text">Cum implementez o temă întunecată (dark mode) pe site?</span>
+			</button>
+			<div class="faq-answer">
+				<div class="answer-inner">
+					<p>Utilizează media query <strong>prefers-color-scheme</strong> pentru a detecta preferința utilizatorului sau oferă un toggle manual. Definirea variabilelor CSS pentru culori și înlocuirea lor în funcție de temă. Stochează preferința în localStorage și aplică clasa corespunzătoare pe elementul html/body.</p>
+					<small>🌙 @media (prefers-color-scheme: dark) · tranziții între teme</small>
+				</div>
+			</div>
+		</div>
+
+		<!-- Întrebare 11 -->
+		<div class="faq-item">
+			<button class="faq-question">
+				<span class="question-text">Ce instrumente folosiți pentru debugging CSS și performanță?</span>
+			</button>
+			<div class="faq-answer">
+				<div class="answer-inner">
+					<p>Pentru debugging: <strong>Chrome DevTools</strong> (inspector, box model, animații), Firefox Developer Tools pentru layout grid/flex. Pentru performanță: <strong>Lighthouse</strong>, WebPageTest, Chrome Performance tab. Extensii precum CSS Scan sau PerfectPixel ajută la precizie pixel-perfect.</p>
+					<span class="badge-flow">🔧 DevTools</span>
+					<span class="badge-flow">📈 Lighthouse CI</span>
+					<span class="badge-flow">⚡ WebPageTest</span>
+				</div>
+			</div>
+		</div>
+
+		<!-- Întrebare 12 -->
+		<div class="faq-item">
+			<button class="faq-question">
+				<span class="question-text">Cum aleg între framework-uri CSS (Bootstrap, Tailwind, Foundation)?</span>
+			</button>
+			<div class="faq-answer">
+				<div class="answer-inner">
+					<p><strong>Bootstrap</strong> oferă componente predefinite, rapid de implementat. <strong>Tailwind CSS</strong> este utility-first, oferă control total și bundle mai mic. <strong>Material UI</strong> este ideal pentru aplicații React. Alegerea depinde de proiect: rapiditate vs. personalizare vs. ecosistem.</p>
+					<small>📦 Tailwind pentru flexibilitate · Bootstrap pentru prototipare rapidă</small>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	(function() {
+		// ==================================================
+		// Variabilă de configurare:
+		// - true  -> se închid celelalte întrebări când se deschide una nouă
+		// - false -> fiecare întrebare rămâne deschisă independent
+		// ==================================================
+		const closeOthersOnOpen = false;
+
+		const faqItems = document.querySelectorAll('.faq-item');
+        
+		// Verificare de siguranță: dacă nu există elemente FAQ, ieșim
+		if (faqItems.length === 0) return;
+
+		// Funcție pentru a genera ID-uri unice și atribute ARIA
+		function initializeAccessibility() {
+			faqItems.forEach((item, index) => {
+				// Generează ID-uri unice pe baza indexului
+				const btnId = `faq-btn-${index + 1}`;
+				const answerId = `faq-answer-${index + 1}`;
+				const itemId = `faq-item-${index + 1}`;
+                
+				// Setează ID pe container
+				item.id = itemId;
+                
+				// Găsește butonul și adaugă atributele necesare
+				const button = item.querySelector('.faq-question');
+				if (button) {
+					button.id = btnId;
+					button.setAttribute('aria-controls', answerId);
+					button.setAttribute('aria-expanded', 'false');
+                    
+					// Adaugă text ascuns pentru screen reader dacă nu există deja
+					if (!button.querySelector('.sr-only')) {
+						const srSpan = document.createElement('span');
+						srSpan.className = 'sr-only';
+						srSpan.textContent = ', click pentru a deschide sau închide răspunsul';
+						button.appendChild(srSpan);
+					}
+				}
+                
+				// Găsește panoul de răspuns și adaugă atribute
+				const answerPanel = item.querySelector('.faq-answer');
+				if (answerPanel) {
+					answerPanel.id = answerId;
+					answerPanel.setAttribute('aria-hidden', 'true');
+					answerPanel.setAttribute('role', 'region');
+                    
+					// Adaugă aria-label descriptiv bazat pe textul întrebării
+					const questionText = button?.querySelector('.question-text')?.textContent.trim() || `Întrebarea ${index + 1}`;
+					answerPanel.setAttribute('aria-label', `Răspuns pentru: ${questionText}`);
+				}
+			});
+		}
+
+		// Funcție pentru a actualiza atributele ARIA în funcție de stare
+		function updateAriaState(item, isOpen) {
+			const button = item.querySelector('.faq-question');
+			const answerPanel = item.querySelector('.faq-answer');
+            
+			if (button) {
+				button.setAttribute('aria-expanded', isOpen);
+			}
+            
+			if (answerPanel) {
+				answerPanel.setAttribute('aria-hidden', !isOpen);
+			}
+		}
+
+		// Funcție pentru a deschide un element
+		function openItem(itemToOpen) {
+			if (!itemToOpen) return;
+            
+			if (closeOthersOnOpen) {
+				// Închide toate celelalte întrebări și actualizează ARIA
+				faqItems.forEach(item => {
+					if (item !== itemToOpen && item.classList.contains('open')) {
+						item.classList.remove('open');
+						updateAriaState(item, false);
+					}
+				});
+			}
+            
+			// Deschide elementul curent dacă nu este deja deschis
+			if (!itemToOpen.classList.contains('open')) {
+				itemToOpen.classList.add('open');
+				updateAriaState(itemToOpen, true);
+			}
+		}
+        
+		// Funcție pentru a închide un element
+		function closeItem(item) {
+			if (item.classList.contains('open')) {
+				item.classList.remove('open');
+				updateAriaState(item, false);
+			}
+		}
+        
+		// Funcție pentru a comuta starea
+		function toggleItem(item) {
+			if (item.classList.contains('open')) {
+				closeItem(item);
+			} else {
+				openItem(item);
+			}
+		}
+        
+		// Inițializează toate atributele de accesibilitate
+		initializeAccessibility();
+        
+		// Adaugă event listeners pe fiecare buton
+		const buttons = document.querySelectorAll('.faq-question');
+		buttons.forEach(button => {
+			button.addEventListener('click', function(e) {
+				e.preventDefault();
+				const faqItem = this.closest('.faq-item');
+				if (faqItem) {
+					toggleItem(faqItem);
+				}
+			});
+            
+			// Suport pentru tastatură
+			button.addEventListener('keydown', function(e) {
+				if (e.key === 'Enter' || e.key === ' ') {
+					e.preventDefault();
+					this.click();
+				}
+			});
+		});
+        
+		// Asigură starea ARIA corectă la inițializare
+		faqItems.forEach(item => {
+			const isOpen = item.classList.contains('open');
+			updateAriaState(item, isOpen);
+		});
+        
+		console.log('FAQ componentă complet accesibilă — ID-uri și ARIA generate dinamic, tranziție cu CSS Grid');
+	})();
+</script>
+</body>
+</html>

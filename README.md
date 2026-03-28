@@ -12,3 +12,11 @@
    
 ### Menu Accesibil
 [https://suiramus.github.io/uix-26/menu-accesibil](https://suiramus.github.io/uix-26/menu-accesibil)  
+
+### FAQ Accordion Simple (Gem)
+[https://suiramus.github.io/uix-26/faq-simple](https://suiramus.github.io/uix-26/faq-simple)  
+
+### FAQ Accordion Accesible (Deep)
+[https://suiramus.github.io/uix-26/faq-accesible](https://suiramus.github.io/uix-26/faq-accesible)  
+
+
