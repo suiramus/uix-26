@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Accordion Simplu & Elegant</title>
+	<style>
+		/* ===== RESET & BAZĂ ===== */
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		
+		body {
+			font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+			background: #f5f7fa;
+			padding: 2rem 1.5rem;
+		}
+		
+		.container {
+			max-width: 680px;
+			margin-inline: auto;
+			width: 100%;
+			background: #ffffff;
+			border-radius: 8px;
+			padding: 2.5rem 2rem;
+			box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+		}
+		
+		.container-header {
+			margin-bottom: 2rem;
+		}
+		
+		.container-header h1 {
+			font-size: 1.75rem;
+			font-weight: 600;
+			color: #111827;
+			letter-spacing: -0.02em;
+		}
+		
+		.container-header p {
+			color: #6b7280;
+			font-size: 0.95rem;
+			margin-top: 0.25rem;
+		}
+		
+		/* ===== SEPARATOR ===== */
+		.divider {
+			height: 1px;
+			background: #e5e7eb;
+			margin: 0 0 0.25rem 0;
+		}
+		
+		/* ===== ACCORDION ===== */
+		.accordion-item {
+			border-bottom: 1px solid #e5e7eb;
+		}
+		
+		.accordion-item:last-child {
+			border-bottom: none;
+		}
+		
+		.accordion {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			gap: 1rem;
+			padding: 1.25rem 0;
+			cursor: pointer;
+			user-select: none;
+			position: relative;
+		}
+		
+		.accordion h3 {
+			font-size: 1rem;
+			font-weight: 500;
+			color: #111827;
+			margin: 0;
+			transition: color 0.2s ease;
+		}
+		
+		.accordion:hover h3 {
+			color: #2563eb;
+		}
+		
+		.accordion:focus-visible {
+			outline: 2px solid #2563eb;
+			outline-offset: 2px;
+			border-radius: 4px;
+		}
+		
+		/* ===== SVG ICON VIA PSEUDO-CLASS ===== */
+		.accordion::after {
+			content: '';
+			flex-shrink: 0;
+			width: 20px;
+			height: 20px;
+			background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='12' y1='5' x2='12' y2='19'%3E%3C/line%3E%3Cline x1='5' y1='12' x2='19' y2='12'%3E%3C/line%3E%3C/svg%3E");
+			background-size: contain;
+			background-repeat: no-repeat;
+			background-position: center;
+			transition: transform 0.3s ease, background-image 0.3s ease;
+		}
+		
+		.accordion.active::after {
+			background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232563eb' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='5' y1='12' x2='19' y2='12'%3E%3C/line%3E%3C/svg%3E");
+			transform: rotate(0deg);
+		}
+		
+		.accordion.active h3 {
+			color: #2563eb;
+		}
+		
+		.panel {
+			max-height: 0;
+			overflow: hidden;
+			transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+		}
+		
+		.panel-inner {
+			padding: 0 0 1.5rem 0;
+			opacity: 0;
+			transition: opacity 0.3s ease;
+		}
+		
+		.panel.open .panel-inner {
+			opacity: 1;
+		}
+		
+		.panel p {
+			color: #4b5563;
+			line-height: 1.7;
+			font-size: 0.95rem;
+			margin: 0;
+		}
+		
+		.panel p:not(:last-child) {
+			margin-bottom: 0.75rem;
+		}
+		
+		/* ===== RESPONSIVE ===== */
+		@media (max-width: 600px) {
+			.container {
+				padding: 1.75rem 1.25rem;
+			}
+			
+			.container-header h1 {
+				font-size: 1.5rem;
+			}
+			
+			.accordion {
+				padding: 1rem 0;
+			}
+			
+			.accordion h3 {
+				font-size: 0.95rem;
+			}
+			
+			.accordion::after {
+				width: 18px;
+				height: 18px;
+			}
+			
+			.panel-inner {
+				padding: 0 0 1.25rem 0;
+			}
+			
+			.panel p {
+				font-size: 0.9rem;
+			}
+		}
+		
+		@media (max-width: 400px) {
+			body {
+				padding: 1rem 0.75rem;
+			}
+			
+			.container {
+				padding: 1.25rem 1rem;
+			}
+			
+			.accordion {
+				padding: 0.875rem 0;
+			}
+			
+			.accordion h3 {
+				font-size: 0.9rem;
+			}
+			
+			.accordion::after {
+				width: 16px;
+				height: 16px;
+			}
+			
+			.panel-inner {
+				padding: 0 0 1rem 0;
+			}
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="container-header">
+			<h1>Întrebări frecvente: JS vanilla JS</h1>
+			<p>Click pe fiecare întrebare pentru a citi răspunsul</p>
+		</div>
+		
+		<div class="divider"></div>
+		
+		<!-- ===== ACCORDION 1 ===== -->
+		<div class="accordion-item">
+			<div class="accordion" role="button" tabindex="0" aria-expanded="false">
+				<h3>Ce este un accordion?</h3>
+			</div>
+			<div class="panel">
+				<div class="panel-inner">
+					<p>Un accordion este un element de interfață care permite afișarea și ascunderea conținutului prin extindere și contractare. Este folosit frecvent pentru a organiza informații într-un mod compact și ușor de navigat.</p>
+					<p>Un accordion este un element de interfață care permite afișarea și ascunderea conținutului prin extindere și contractare. Este folosit frecvent pentru a organiza informații într-un mod compact și ușor de navigat.</p>
+				</div>
+			</div>
+		</div>
+		
+		<!-- ===== ACCORDION 2 ===== -->
+		<div class="accordion-item">
+			<div class="accordion" role="button" tabindex="0" aria-expanded="false">
+				<h3>Cum se folosește?</h3>
+			</div>
+			<div class="panel">
+				<div class="panel-inner">
+					<p>Pentru a folosi acest accordion, apasă pe oricare dintre titlurile secțiunilor. Conținutul se va deschide sau închide cu o tranziție fluidă. Poți deschide mai multe secțiuni simultan, fiecare funcționând independent.</p>
+				</div>
+			</div>
+		</div>
+		
+		<!-- ===== ACCORDION 3 ===== -->
+		<div class="accordion-item">
+			<div class="accordion" role="button" tabindex="0" aria-expanded="false">
+				<h3>Pot personaliza stilurile?</h3>
+			</div>
+			<div class="panel">
+				<div class="panel-inner">
+					<p>Da! Stilurile pot fi modificate cu ușurință în secțiunea CSS. Poți schimba culorile, fonturile, padding-ul și tranzițiile. Iconițele SVG folosesc stroke-uri care pot fi colorate modificând valorile <code>stroke</code> din URL-urile codificate.</p>
+				</div>
+			</div>
+		</div>
+		
+		<!-- ===== ACCORDION 4 ===== -->
+		<div class="accordion-item">
+			<div class="accordion" role="button" tabindex="0" aria-expanded="false">
+				<h3>Este accesibil?</h3>
+			</div>
+			<div class="panel">
+				<div class="panel-inner">
+					<p>Absolut! Accordionul include suport pentru tastatură (Enter/Space) și atribute ARIA pentru cititoarele de ecran. De asemenea, are un contrast bun și focus vizibil pentru utilizatorii care navighează cu tastatura.</p>
+				</div>
+			</div>
+		</div>
+		
+		<!-- ===== ACCORDION 5 ===== -->
+		<div class="accordion-item">
+			<div class="accordion" role="button" tabindex="0" aria-expanded="false">
+				<h3>Cum schimb culoarea iconiței?</h3>
+			</div>
+			<div class="panel">
+				<div class="panel-inner">
+					<p>Iconițele sunt implementate ca SVG-uri inline în background-image prin pseudo-clasa <code>::after</code>. Pentru a schimba culoarea, modifică valorile <code>stroke</code> din URL-urile codificate. De exemplu, pentru iconița închisă, <code>stroke=%236b7280</code> reprezintă gri, iar pentru cea deschisă, <code>stroke=%232563eb</code> reprezintă albastru. </p>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<script>
+		(() => {
+			'use strict';
+			
+			const accordions = document.querySelectorAll('.accordion');
+			
+			const toggle = (el) => {
+				const panel = el.nextElementSibling;
+				const isOpen = panel.style.maxHeight;
+				
+				el.classList.toggle('active');
+				
+				const isExpanded = el.classList.contains('active');
+				el.setAttribute('aria-expanded', isExpanded);
+				
+				if (isOpen) {
+					panel.style.maxHeight = null;
+					panel.classList.remove('open');
+				} else {
+					// Setăm max-height la dimensiunea totală a conținutului interior
+					const inner = panel.querySelector('.panel-inner');
+					panel.style.maxHeight = inner.scrollHeight + 'px';
+					panel.classList.add('open');
+				}
+			};
+			
+			accordions.forEach((el) => {
+				el.addEventListener('click', (e) => {
+					e.preventDefault();
+					toggle(el);
+				});
+				
+				el.addEventListener('keydown', (e) => {
+					if (e.key === 'Enter' || e.key === ' ') {
+						e.preventDefault();
+						toggle(el);
+					}
+				});
+			});
+		})();
+	</script>
+</body>
+</html>

@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Accordion Elegant - Fără JavaScript</title>
+	<style>
+		/* ===== RESET & BAZĂ ===== */
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		
+		body {
+			font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+			background: #f5f7fa;
+			padding: 2rem 1.5rem;
+		}
+		
+		.container {
+			max-width: 680px;
+			margin-inline: auto;
+			width: 100%;
+			background: #ffffff;
+			border-radius: 1.25rem;
+			padding: 2.5rem 2rem;
+			box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+			transition: box-shadow 0.3s ease;
+		}
+		
+		.container:hover {
+			box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+		}
+		
+		.container-header {
+			margin-bottom: 2rem;
+		}
+		
+		.container-header h1 {
+			font-size: 1.75rem;
+			font-weight: 600;
+			color: #111827;
+			letter-spacing: -0.02em;
+		}
+		
+		.container-header p {
+			color: #6b7280;
+			font-size: 0.95rem;
+			margin-top: 0.25rem;
+		}
+		
+		/* ===== SEPARATOR ===== */
+		.divider {
+			height: 1px;
+			background: #e5e7eb;
+			margin: 0 0 0.25rem 0;
+		}
+		
+		/* ===== ACCORDION - VERSION 2 (DETAILS) ===== */
+		.accordion-item {
+			border-bottom: 1px solid #e5e7eb;
+			transition: border-color 0.3s ease;
+		}
+		
+		.accordion-item:last-child {
+			border-bottom: none;
+		}
+		
+		/* ===== SUMMARY ===== */
+		.accordion-item summary {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			gap: 1rem;
+			padding: 1.25rem 0;
+			cursor: pointer;
+			user-select: none;
+			list-style: none;
+			font-weight: 500;
+			font-size: 1rem;
+			color: #111827;
+			transition: color 0.2s ease;
+			position: relative;
+		}
+		
+		/* Eliminăm săgeata implicită pentru toate browserele */
+		.accordion-item summary::-webkit-details-marker {
+			display: none;
+		}
+		
+		.accordion-item summary::-moz-list-bullet {
+			list-style: none;
+		}
+		
+		.accordion-item summary::marker {
+			display: none;
+		}
+		
+		/* Hover effect */
+		.accordion-item summary:hover {
+			color: #2563eb;
+		}
+		
+		/* Focus pentru accesibilitate */
+		.accordion-item summary:focus-visible {
+			outline: 2px solid #2563eb;
+			outline-offset: 4px;
+			border-radius: 4px;
+		}
+		
+		/* ===== SVG ICON VIA PSEUDO-CLASS ===== */
+		.accordion-item summary::after {
+			content: '';
+			flex-shrink: 0;
+			width: 20px;
+			height: 20px;
+			background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='12' y1='5' x2='12' y2='19'%3E%3C/line%3E%3Cline x1='5' y1='12' x2='19' y2='12'%3E%3C/line%3E%3C/svg%3E");
+			background-size: contain;
+			background-repeat: no-repeat;
+			background-position: center;
+			transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+			background-image 0.3s ease;
+		}
+		
+		/* Stare deschisă */
+		.accordion-item[open] summary {
+			color: #2563eb;
+		}
+		
+		.accordion-item[open] summary::after {
+			background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232563eb' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='5' y1='12' x2='19' y2='12'%3E%3C/line%3E%3C/svg%3E");
+			transform: rotate(0deg);
+		}
+		
+		/* ===== CONTENT ===== */
+		.accordion-content {
+			padding: 0 0 1.5rem 0;
+			color: #4b5563;
+			line-height: 1.7;
+			font-size: 0.95rem;
+			animation: fadeIn 0.3s ease;
+		}
+		
+		.accordion-content p {
+			margin: 0;
+		}
+		
+		.accordion-content p:not(:last-child) {
+			margin-bottom: 0.75rem;
+		}
+		
+		/* ===== ANIMAȚIE PENTRU DESCHIDERE ===== */
+		@keyframes fadeIn {
+			from {
+				opacity: 0;
+				transform: translateY(-4px);
+			}
+			to {
+				opacity: 1;
+				transform: translateY(0);
+			}
+		}
+		
+		/* ===== RESPONSIVE ===== */
+		@media (max-width: 600px) {
+			.container {
+				padding: 1.75rem 1.25rem;
+			}
+			
+			.container-header h1 {
+				font-size: 1.5rem;
+			}
+			
+			.accordion-item summary {
+				padding: 1rem 0;
+				font-size: 0.95rem;
+			}
+			
+			.accordion-item summary::after {
+				width: 18px;
+				height: 18px;
+			}
+			
+			.accordion-content {
+				padding: 0 0 1.25rem 0;
+				font-size: 0.9rem;
+			}
+		}
+		
+		@media (max-width: 400px) {
+			body {
+				padding: 1rem 0.75rem;
+			}
+			
+			.container {
+				padding: 1.25rem 1rem;
+			}
+			
+			.accordion-item summary {
+				padding: 0.875rem 0;
+				font-size: 0.9rem;
+			}
+			
+			.accordion-item summary::after {
+				width: 16px;
+				height: 16px;
+			}
+			
+			.accordion-content {
+				padding: 0 0 1rem 0;
+				font-size: 0.85rem;
+			}
+		}
+		
+		/* ===== PRINT STYLES ===== */
+		@media print {
+			.accordion-item[open] .accordion-content {
+				display: block !important;
+			}
+			
+			.accordion-item summary::after {
+				display: none;
+			}
+		}
+		
+		/* ===== REDUCED MOTION ===== */
+		@media (prefers-reduced-motion: reduce) {
+			.accordion-item summary::after {
+				transition: none;
+			}
+			
+			.accordion-content {
+				animation: none;
+			}
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="container-header">
+			<h1>Întrebări frecvente</h1>
+			<p>Click pe fiecare întrebare pentru a citi răspunsul</p>
+		</div>
+		
+		<div class="divider"></div>
+		
+		<!-- ===== ACCORDION 1 ===== -->
+		<details class="accordion-item">
+			<summary>Ce este un accordion?</summary>
+			<div class="accordion-content">
+				<p>
+					Un accordion este un element de interfață care permite
+					afișarea și ascunderea conținutului prin extindere și
+					contractare. Este folosit frecvent pentru a organiza
+					informații într-un mod compact și ușor de navigat.
+				</p>
+				<p>
+					Această variantă folosește elementele native 
+					<code>&lt;details&gt;</code> și <code>&lt;summary&gt;</code>,
+					funcționând perfect chiar și fără JavaScript.
+				</p>
+			</div>
+		</details>
+		
+		<!-- ===== ACCORDION 2 ===== -->
+		<details class="accordion-item">
+			<summary>Cum se folosește?</summary>
+			<div class="accordion-content">
+				<p>
+					Pentru a folosi acest accordion, apasă pe oricare dintre
+					titlurile secțiunilor. Conținutul se va deschide sau închide
+					cu o animație fluidă.
+				</p>
+				<p>
+					Poți deschide mai multe secțiuni simultan, fiecare
+					funcționând independent. Starea (deschis/închis) se
+					păstrează chiar și după reîncărcarea paginii.
+				</p>
+			</div>
+		</details>
+		
+		<!-- ===== ACCORDION 3 ===== -->
+		<details class="accordion-item">
+			<summary>Pot personaliza stilurile?</summary>
+			<div class="accordion-content">
+				<p>
+					Da! Stilurile pot fi modificate cu ușurință în secțiunea
+					CSS. Poți schimba culorile, fonturile, padding-ul și
+					tranzițiile.
+				</p>
+				<p>
+					Iconițele SVG folosesc stroke-uri care pot fi colorate
+					modificând valorile <code>stroke</code> din URL-urile
+					codificate în <code>background-image</code>.
+				</p>
+			</div>
+		</details>
+		
+		<!-- ===== ACCORDION 4 ===== -->
+		<details class="accordion-item">
+			<summary>Este accesibil?</summary>
+			<div class="accordion-content">
+				<p>
+					Absolut! Elementele <code>&lt;details&gt;</code> și
+					<code>&lt;summary&gt;</code> sunt native HTML și suportă
+					implicit navigarea cu tastatura (Enter/Space).
+				</p>
+				<p>
+					De asemenea, au suport nativ pentru cititoarele de ecran,
+					fiind una dintre cele mai accesibile soluții pentru
+					acordioane.
+				</p>
+			</div>
+		</details>
+		
+		<!-- ===== ACCORDION 5 ===== -->
+		<details class="accordion-item">
+			<summary>Cum schimb culoarea iconiței?</summary>
+			<div class="accordion-content">
+				<p>
+					Iconițele sunt implementate ca SVG-uri inline în
+					<code>background-image</code> prin pseudo-clasa
+					<code>::after</code> pe elementul <code>&lt;summary&gt;</code>.
+				</p>
+				<p>
+					Pentru a schimba culoarea, modifică valorile
+					<code>stroke</code> din URL-urile codificate:
+					<br />
+					• Închis: <code>stroke=%236b7280</code> (gri)
+					<br />
+					• Deschis: <code>stroke=%232563eb</code> (albastru)
+				</p>
+			</div>
+		</details>
+	</div>
+</body>
+</html>
