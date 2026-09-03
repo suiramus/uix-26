@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Subgrid</title>
+	<style>
+		/* Reset & stilizare generală */
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		body {
+			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+			padding: 20px;
+			background: #F1EDE9;
+		}
+		
+		img {
+			display: block;
+			max-width: 100%;
+			height: auto;
+		}
+		
+		.container {
+			max-width: 1200px;
+			margin-inline: auto;
+			margin-block: 40px;
+			padding-inline: 2rem;
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);  /* 3 coloane egale */
+			gap: 2rem;
+		}
+		
+		@media only screen and (max-width: 900px) {
+			.container {
+				grid-template-columns: 1fr 1fr;
+			}
+		}/* 800px */
+		
+		@media only screen and (max-width: 600px) {
+			.container {
+				grid-template-columns: 1fr;
+				gap: 3rem;
+			}
+		}/* 800px */
+		
+		.item {
+			--item-padding: 1.5rem;
+			position: relative;
+			display: grid;
+			grid-template-rows: subgrid;  /* moștenește rândurile părintelui */
+			grid-row: span 4;
+			gap: 1rem;
+			background: #FFF;
+			padding-block-end: var(--item-padding);
+			border-radius: 6px;
+			overflow: hidden;
+			box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+		}
+		
+		.item > *:not(.item-media) {
+			padding-inline: var(--item-padding); /* doar elementele care nu sunt item-media */
+		}
+
+		.item > :last-child {
+			/* padding-bottom: 1.5rem; */
+		}
+		
+		.item p:not(:last-child) {
+			margin-bottom: 1rem;
+		}
+		
+		@media only screen and (max-width: 600px) {
+			
+			.container {
+				justify-items: center;
+			}
+			
+			.item {
+				width: 100%;
+				max-width: 400px;
+			}
+		}/* 800px */
+		
+		.item-media{
+			aspect-ratio: 6 / 3;
+			overflow: hidden;
+		}
+		
+		.item-media img {
+			object-fit: cover;
+			transform: scale(1,1);
+			transition: all .4s;
+		}
+		
+		.item-media img:hover {
+			transform: scale(1.05, 1.05);
+		}
+		
+		.button {
+			--button-bg: #0278C5;
+			--hover-darken: 0.15;
+			
+			display: block;
+			background: var(--button-bg);
+			margin-inline: var(--item-padding);
+			color: white;
+			/* max-width: 250px; */
+			line-height: 1;
+			text-align: left;
+			text-decoration: none;
+			padding: 1rem 2rem;
+			border: none;
+			border-radius: 6px;
+			cursor: pointer;
+			transition: background 0.25s ease;
+		}
+		
+		.button:hover {
+			background: color-mix(in srgb, var(--button-bg) calc(100% - var(--hover-darken) * 100%), black);
+		}
+	
+		
+	</style>
+</head>
+<body>
+	
+	<div class="container">
+		
+		<div class="item">
+			<div class="item-media">
+				<img src="https://picsum.photos/id/1011/600/400" alt="Alt">
+			</div>
+			<h3>Item title</h3>
+			<div class="item-desc">
+				<p>Ipsam culpa modi officia provident qui! Natus iusto esse architecto ratione consequuntur. Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae consequuntur eum iure exercitationem quae quidem quisquam reiciendis facere odio perferendis, nostrum sit ex suscipit nobis, hic beatae mollitia expedita. A.</p>
+			</div><!-- .item-desc -->
+			<a href="#!" class="button">Button</a>
+		</div><!-- .item -->
+		
+		<div class="item">
+			<div class="item-media">
+				<img src="https://picsum.photos/id/1013/600/400" alt="Alt">
+			</div>
+			<h3>Item title. Very super long title here. Longer, longer</h3>
+			<div class="item-desc">
+				<p>Vitae consequuntur eum iure exercitationem quae quidem quisquam reiciendis facere odio perferendis, nostrum sit ex suscipit nobis, hic beatae mollitia expedita. A.</p>
+			</div><!-- .item-desc -->
+			<a href="#!" class="button">Button</a>
+		</div><!-- .item -->
+		
+		<div class="item">
+			<div class="item-media">
+				<img src="https://picsum.photos/id/20/600/400" alt="Alt">
+			</div>
+			<h3>Item title</h3>
+			<div class="item-desc">
+				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam culpa modi officia provident qui! Natus iusto esse architecto ratione consequuntur.</p>
+				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam culpa modi officia provident qui! Natus iusto esse architecto ratione consequuntur.</p>
+			</div><!-- .item-desc -->
+			<a href="#!" class="button">Button</a>
+		</div><!-- .item -->
+		
+		<div class="item">
+			<div class="item-media">
+				<img src="https://picsum.photos/id/1015/600/400" alt="Alt">
+			</div>
+			<h3>Item title</h3>
+			<div class="item-desc">
+				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam culpa modi officia provident qui! Natus iusto esse architecto ratione consequuntur.</p>
+			</div><!-- .item-desc -->
+			<a href="#!" class="button">Button</a>
+		</div><!-- .item -->
+		
+		<div class="item">
+			<div class="item-media">
+				<img src="https://picsum.photos/id/1016/600/400" alt="Alt">
+			</div>
+			<h3>Item title</h3>
+			<div class="item-desc">
+				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam culpa modi officia provident qui! Natus iusto esse architecto ratione consequuntur.</p>
+			</div><!-- .item-desc -->
+			<a href="#!" class="button">Button</a>
+		</div><!-- .item -->
+		
+		<div class="item">
+			<div class="item-media">
+				<img src="https://picsum.photos/id/1012/600/400" alt="Alt">
+			</div>
+			<h3>Item title</h3>
+			<div class="item-desc">
+				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tempore, dolore. Ipsam culpa modi officia provident qui! Natus iusto esse architecto ratione consequuntur.</p>
+			</div><!-- .item-desc -->
+			<a href="#!" class="button">Button</a>
+		</div><!-- .item -->
+		
+		
+	</div>
+	
+	
+</body>
+</html>
